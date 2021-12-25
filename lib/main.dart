@@ -1,6 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors
 
-import 'package:bmi_calculator/input_page.dart';
+import 'package:bmi_calculator/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF0A0E21),
         scaffoldBackgroundColor: const Color(0xFF0A0E21),
       ),
-      home: InputPage(),
+      home: SplashScreen(),
     );
   }
 }

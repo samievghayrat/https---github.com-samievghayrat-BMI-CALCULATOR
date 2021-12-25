@@ -137,7 +137,7 @@ class _CustomDialogState extends State<CustomDialog> {
       adLoadCallback: InterstitialAdLoadCallback(
         // if ad fails to load
         onAdFailedToLoad: (LoadAdError error) {
-     //     print('Ad exited with error: $error');
+          //     print('Ad exited with error: $error');
         },
 
         // else
@@ -164,7 +164,7 @@ class _CustomDialogState extends State<CustomDialog> {
       // if ad fails to show content
       onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
         Navigator.pop(context);
-     //   print('$ad onAdFailedToShowFullScreenContent: $error'); // print error
+        //   print('$ad onAdFailedToShowFullScreenContent: $error'); // print error
         ad.dispose(); // dispose ad
       },
     );
@@ -205,25 +205,27 @@ class _CustomDialogState extends State<CustomDialog> {
         children: <Widget>[
           const Text(
             "Your BMI result is:",
-            style: TextStyle(wordSpacing: 0.1, letterSpacing: 0.01),
+            style:
+                TextStyle(wordSpacing: 0.1, letterSpacing: 0.0, fontSize: 15),
           ),
+          SizedBox(height: 10),
           Text(
             widget.bmiResult,
             style: const TextStyle(
                 letterSpacing: 2,
-                fontSize: 70,
+                fontSize: 50,
                 fontWeight: FontWeight.bold,
                 color: Colors.white),
           ),
           const SizedBox(
-            height: 35,
+            height: 20,
           ),
           Text(
             //"${widget.bmiResult} is ${widget.resultText.toUpperCase()}",
             "${widget.resultText.toUpperCase()}",
             textAlign: TextAlign.center,
             style: const TextStyle(
-                decoration: TextDecoration.underline,
+                // decoration: TextDecoration.underline,
                 fontSize: 30.0,
                 fontWeight: FontWeight.w700,
                 color: Colors.white),
@@ -242,7 +244,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   letterSpacing: 0.1,
                   fontWeight: FontWeight.w500,
                   color: Colors.white),
-              textAlign: TextAlign.start,
+              textAlign: TextAlign.center,
             ),
           ),
           const SizedBox(height: 24.0),
