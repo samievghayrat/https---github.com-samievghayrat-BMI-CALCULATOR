@@ -26,7 +26,7 @@ class CalculatorBrain {
 
   dynamic getInterpretation() {
     if (29.9 > _bmi && _bmi > 25) {
-      return 'You are recommended losign weight through healthy eating and being more physically active. Kids are teens who are overweight are more likely to develop diabetes and other health issues.\n';
+      return 'You are recommended losing weight through healthy eating and being more physically active. Kids are teens who are overweight are more likely to develop diabetes and other health issues.\n';
     } else if (24.9 > _bmi && _bmi >= 18.5) {
       return 'You have a normal body weight. Good job!';
     } else if (_bmi < 18.5) {
