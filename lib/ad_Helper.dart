@@ -2,6 +2,8 @@
 // ignore: file_names
 import 'dart:io';
 
+//ignore: file names
+
 class AdHelper {
   //adhelper
 
