@@ -1,3 +1,8 @@
+// ignore: duplicate_ignore
+// ignore: duplicate_ignore
+// ignore: file_names
+// ignore_for_file: file_names
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -18,12 +23,14 @@ class _InterstitialState extends State<Interstitial> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -72,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onAdLoaded: (InterstitialAd ad) {
           setState(
             () {
-              this.myInterstitial = ad; // set the ad equal to the current ad
+              myInterstitial = ad; // set the ad equal to the current ad
             },
           );
         },
@@ -178,7 +185,7 @@ class _SecondPageState extends State<SecondPage> {
         onAdLoaded: (InterstitialAd ad) {
           setState(
             () {
-              this.myInterstitial = ad; // set the ad equal to the current ad
+              myInterstitial = ad; // set the ad equal to the current ad
             },
           );
         },

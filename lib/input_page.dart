@@ -69,7 +69,7 @@ class _InputPageState extends State<InputPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const Banner_Ad(),
+    //  bottomNavigationBar: const Banner_Ad(),
       extendBody: true,
       appBar: AppBar(
         actions: [
@@ -399,7 +399,8 @@ class _InputPageState extends State<InputPage> {
                       overlayColor: const Color(0xFF6B7675),
                       thumbShape:
                           const RoundSliderThumbShape(enabledThumbRadius: 12),
-                      overlayShape: RoundSliderOverlayShape(overlayRadius: 20),
+                      overlayShape:
+                          const RoundSliderOverlayShape(overlayRadius: 20),
                     ),
                     child: Slider(
                       value: height.toDouble(),
@@ -463,7 +464,8 @@ class _InputPageState extends State<InputPage> {
                         color: Colors.white.withOpacity(0.1),
                         spreadRadius: 0.5,
                         blurRadius: 1,
-                        offset: Offset(0, 0.5), // changes position of shadow
+                        offset:
+                            const Offset(0, 0.5), // changes position of shadow
                       ),
                     ],
                     color: kActiveCardColour_gender),

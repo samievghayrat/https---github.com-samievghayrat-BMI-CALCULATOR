@@ -29,6 +29,7 @@ class _Banner_AdState extends State<Banner_Ad> {
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {
+            
           });
         },
         onAdFailedToLoad: (ad, err) {

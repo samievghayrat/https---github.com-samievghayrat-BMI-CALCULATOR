@@ -1,7 +1,9 @@
 # bmi_calculator
+With BMI Calculator you check your body health by giving your weight and height
+
 
 A new Flutter project.
-
+BMi Calculator is a tool that uses person's weight nad height and calculates hi/her body health.
 ## Getting Started
 
 This project is a starting point for a Flutter application.

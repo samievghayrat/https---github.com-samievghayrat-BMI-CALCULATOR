@@ -1,6 +1,4 @@
-// ignore_for_file: unnecessary_string_interpolations
-
-import 'dart:io';
+// ignore_for_file: unnecessary_string_interpolations, duplicate_ignore
 
 import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/information.dart';
@@ -106,6 +104,7 @@ class _ResultsPageState extends State<ResultsPage> {
 }
 
 class CustomDialog extends StatefulWidget {
+  // ignore: use_key_in_widget_constructors
   const CustomDialog(
       {required this.interpretation,
       required this.bmiResult,
@@ -130,9 +129,8 @@ class _CustomDialogState extends State<CustomDialog> {
 
   _createInterstitialAd() {
     InterstitialAd.load(
-      adUnitId: Platform.isAndroid
-          ? 'ca-app-pub-3940256099942544/1033173712'
-          : 'ca-app-pub-3940256099942544/4411468910', // test ad ids for different platforms
+      adUnitId: 'ca-app-pub-3940256099942544/1033173712'
+          , // test ad ids for different platforms
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         // if ad fails to load
@@ -144,7 +142,7 @@ class _CustomDialogState extends State<CustomDialog> {
         onAdLoaded: (InterstitialAd ad) {
           setState(
             () {
-              this.myInterstitial = ad; // set the ad equal to the current ad
+              myInterstitial = ad; // set the ad equal to the current ad
             },
           );
         },
@@ -208,7 +206,7 @@ class _CustomDialogState extends State<CustomDialog> {
             style:
                 TextStyle(wordSpacing: 0.1, letterSpacing: 0.0, fontSize: 15),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
             widget.bmiResult,
             style: const TextStyle(
@@ -234,30 +232,33 @@ class _CustomDialogState extends State<CustomDialog> {
             height: 35,
           ),
           SingleChildScrollView(
-            // ignore: duplicate_ignore
-            child: Text(
-              // ignore: unnecessary_string_interpolations
-              "${widget.interpretation}",
-              style: const TextStyle(
-                  wordSpacing: 1.75,
-                  fontSize: 19.0,
-                  letterSpacing: 0.1,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white),
-              textAlign: TextAlign.center,
+            // ignore: duplicate_ignore, duplicate_ignore, duplicate_ignore
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                // ignore: unnecessary_string_interpolations
+                "${widget.interpretation}",
+                style: TextStyle(
+                    wordSpacing: 1.75,
+                    fontSize: 20.0,
+                    letterSpacing: 0.1,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
           const SizedBox(height: 24.0),
           Align(
-            alignment: Alignment.bottomRight,
+            alignment: Alignment.center,
             child: TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.teal),
               ),
               onPressed: () {
-                _showInterstitialAd();
+                Navigator.pop(context);;
               },
-              child: const Text("   Return   ",
+              child: const Text("   Close    ",
                   style: TextStyle(fontSize: 23.0, color: Colors.white)),
             ),
           )

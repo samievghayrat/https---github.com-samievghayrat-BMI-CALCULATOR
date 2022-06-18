@@ -1,9 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -69,7 +66,7 @@ var popupMenuButton = Padding(
       PopupMenuItem(
         child: GestureDetector(
           onTap: () {
-            _launchURL("https://www.instagram.com/ghayratsamiev/");
+            _launchURL("https://www.instagram.com/unistars.io/");
           },
           child: Row(
             children: const [
@@ -88,61 +85,6 @@ var popupMenuButton = Padding(
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      PopupMenuItem(
-        child: GestureDetector(
-          onTap: () {
-            _launchURL("https://t.me/samievghayrat");
-          },
-          child: Row(
-            children: const [
-              Icon(
-                FontAwesomeIcons.googlePlay,
-                color: Colors.green,
-                size: 22.0,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 10.0,
-                ),
-                child: Text(
-                  "Other Apps",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      PopupMenuItem(
-        child: GestureDetector(
-          onTap: () {
-            _launchURL("https://play.google.com/store/apps");
-          },
-          child: Row(
-            children: const [
-              Icon(
-                Icons.star,
-                color: Colors.yellow,
-                size: 30.0,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 10.0,
-                ),
-                child: Text(
-                  "Rate Us",
-                  style: TextStyle(
-                    color: Colors.white,
                   ),
                 ),
               ),
