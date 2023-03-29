@@ -66,7 +66,7 @@ var popupMenuButton = Padding(
       PopupMenuItem(
         child: GestureDetector(
           onTap: () {
-            _launchURL("https://www.instagram.com/unistars.io/");
+            _launchURL("https://www.instagram.com/ghayrat_samiev/");
           },
           child: Row(
             children: const [

@@ -5,6 +5,8 @@ import 'package:bmi_calculator/information.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import 'ad_Helper.dart';
+
 class ResultsPage extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
   const ResultsPage(
@@ -119,55 +121,42 @@ class CustomDialog extends StatefulWidget {
 }
 
 class _CustomDialogState extends State<CustomDialog> {
-  @override
-  void initState() {
-    super.initState();
-    _createInterstitialAd(); // create ad
-  }
+  late InterstitialAd _interstitialAd;
+  bool isIntertitialAdsLoad = false;
 
-  late InterstitialAd myInterstitial;
-
-  _createInterstitialAd() {
+  intetStitialAdsLoad() {
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712'
-          , // test ad ids for different platforms
-      request: const AdRequest(),
+      adUnitId: AdHelper.interstitialAdUnitId,
+      request: AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
-        // if ad fails to load
-        onAdFailedToLoad: (LoadAdError error) {
-          //     print('Ad exited with error: $error');
-        },
-
-        // else
         onAdLoaded: (InterstitialAd ad) {
-          setState(
-            () {
-              myInterstitial = ad; // set the ad equal to the current ad
-            },
-          );
+          _interstitialAd = ad;
+          isIntertitialAdsLoad = true;
+
+          _interstitialAd.fullScreenContentCallback =
+              FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
+            _interstitialAd.dispose();
+            print("object_object onAdDismissedFullScreenContent");
+          }, onAdFailedToShowFullScreenContent: (ad, error) {
+            print("object_object ${error.toString()}");
+          });
         },
+        onAdFailedToLoad: (error) {},
       ),
     );
   }
 
-  _showInterstitialAd() {
-    // create callbacks for ad
-    myInterstitial.fullScreenContentCallback = FullScreenContentCallback(
-      // when dismissed
-      onAdDismissedFullScreenContent: (InterstitialAd ad) {
-        Navigator.pop(context);
-        ad.dispose(); // dispose of ad
-      },
+  initState() {
+    super.initState();
 
-      // if ad fails to show content
-      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-        Navigator.pop(context);
-        //   print('$ad onAdFailedToShowFullScreenContent: $error'); // print error
-        ad.dispose(); // dispose ad
-      },
-    );
+    intetStitialAdsLoad();
+  }
 
-    myInterstitial.show();
+  @override
+  void dispose() {
+    _interstitialAd.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -183,86 +172,99 @@ class _CustomDialogState extends State<CustomDialog> {
   }
 
   dialogContext(BuildContext context) {
-    return Container(
-      padding:
-          const EdgeInsets.only(top: 50, bottom: 16.0, left: 16, right: 16),
-      // margin: const EdgeInsets.only(top: 20.0),
-      decoration: BoxDecoration(
-          color: kActiveCardColour_gender,
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(17),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 10.0,
-              offset: Offset(0.0, 10.0),
+    return WillPopScope(
+      onWillPop: () {
+        if (isIntertitialAdsLoad) {
+          _interstitialAd.show();
+          Navigator.pop(context);
+        }
+        return null!;
+      },
+      child: Container(
+        padding:
+            const EdgeInsets.only(top: 50, bottom: 16.0, left: 16, right: 16),
+        // margin: const EdgeInsets.only(top: 20.0),
+        decoration: BoxDecoration(
+            color: kActiveCardColour_gender,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(17),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10.0,
+                offset: Offset(0.0, 10.0),
+              ),
+            ]),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Text(
+              "Your BMI result is:",
+              style:
+                  TextStyle(wordSpacing: 0.1, letterSpacing: 0.0, fontSize: 15),
             ),
-          ]),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          const Text(
-            "Your BMI result is:",
-            style:
-                TextStyle(wordSpacing: 0.1, letterSpacing: 0.0, fontSize: 15),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            widget.bmiResult,
-            style: const TextStyle(
-                letterSpacing: 2,
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            //"${widget.bmiResult} is ${widget.resultText.toUpperCase()}",
-            "${widget.resultText.toUpperCase()}",
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                // decoration: TextDecoration.underline,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w700,
-                color: Colors.white),
-          ),
-          const SizedBox(
-            height: 35,
-          ),
-          SingleChildScrollView(
-            // ignore: duplicate_ignore, duplicate_ignore, duplicate_ignore
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                // ignore: unnecessary_string_interpolations
-                "${widget.interpretation}",
-                style: TextStyle(
-                    wordSpacing: 1.75,
-                    fontSize: 20.0,
-                    letterSpacing: 0.1,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
-                textAlign: TextAlign.center,
+            const SizedBox(height: 10),
+            Text(
+              widget.bmiResult,
+              style: const TextStyle(
+                  letterSpacing: 2,
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              //"${widget.bmiResult} is ${widget.resultText.toUpperCase()}",
+              "${widget.resultText.toUpperCase()}",
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  // decoration: TextDecoration.underline,
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white),
+            ),
+            const SizedBox(
+              height: 35,
+            ),
+            SingleChildScrollView(
+              // ignore: duplicate_ignore, duplicate_ignore, duplicate_ignore
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  // ignore: unnecessary_string_interpolations
+                  "${widget.interpretation}",
+                  style: TextStyle(
+                      wordSpacing: 1.75,
+                      fontSize: 20.0,
+                      letterSpacing: 0.1,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 24.0),
-          Align(
-            alignment: Alignment.center,
-            child: TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.teal),
+            const SizedBox(height: 24.0),
+            Align(
+              alignment: Alignment.center,
+              child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.teal),
+                ),
+                onPressed: () {
+                  if (isIntertitialAdsLoad) {
+                    _interstitialAd.show();
+                  }
+                  Navigator.pop(context);
+                },
+                child: const Text("   Close    ",
+                    style: TextStyle(fontSize: 23.0, color: Colors.white)),
               ),
-              onPressed: () {
-                Navigator.pop(context);;
-              },
-              child: const Text("   Close    ",
-                  style: TextStyle(fontSize: 23.0, color: Colors.white)),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

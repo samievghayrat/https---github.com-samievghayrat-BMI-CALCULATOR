@@ -69,7 +69,7 @@ class _InputPageState extends State<InputPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    //  bottomNavigationBar: const Banner_Ad(),
+      bottomNavigationBar: const Banner_Ad(),
       extendBody: true,
       appBar: AppBar(
         actions: [
